@@ -1,0 +1,64 @@
+# Unsupervised Hyperspectral and Multispectral Image Blind Fusion Based on Deep Tucker Decomposition Network with Spatial-Spectral Manifold Learning
+
+He Wang, Yang Xu\*, Zebin Wu, Zhihui Wei
+
+Code for the paper: [Unsupervised Hyperspectral and Multispectral Image Blind Fusion Based on Deep Tucker Decomposition Network with Spatial-Spectral Manifold Learning](https://ieeexplore.ieee.org/document/10705122)-*TNNLS* 2024
+
+<div align="center">
+<img src="./pdf/DTDNML-Eng.png"/>
+</div>
+
+## Code Running 
+Simple run `./main.py` or `./bash.sh` demo to implement the fusion of low-resolution hyperspectral image (LR-HSI) and high-resolution multispectral image (HR-MSI) of Sandiego. (Using [PyTorch](https://pytorch.org/) with `Python 3.7` implemented on `Windows` OS or `Linux` OS)
+
+- Before: For the required packages, please refer to detailed `.py` files.
+- Parameters: The trade-off parameters as `train_opt.lambda_*` could be better tuned and the network hyperparameters are flexible.
+- Results: Please see the five evaluation metrics (PSNR, SAM, ERGAS, SSIM, and UIQI) logged in `./checkpoints/*name*/precision.txt` and the output `.mat` files saved in `./Results/*name*/`.
+- Runtime: ca. 30 mins per HSI using a single RTX3090.
+
+:exclamation: You may need to manually simulate the two HSIs to your local in the folder under path `./main.py`. The simulation code implemented via MATLAB will be provided in this repository.
+
+## References
+If you find this code helpful, please kindly cite:
+
+[1] Wang, He, et al. "Unsupervised Hyperspectral and Multispectral Image Blind Fusion Based on Deep Tucker Decomposition Network With Spatial–Spectral Manifold Learning." in *IEEE Transactions on Neural Networks and Learning Systems*, vol. 36, no. 7, pp. 12721-12735, July 2025, doi: 10.1109/TNNLS.2024.3457781.
+
+
+## Citation Details
+```
+@ARTICLE{10705122,
+  author={Wang, He and Xu, Yang and Wu, Zebin and Wei, Zhihui},
+  journal={IEEE Transactions on Neural Networks and Learning Systems}, 
+  title={Unsupervised Hyperspectral and Multispectral Image Blind Fusion Based on Deep Tucker Decomposition Network With Spatial–Spectral Manifold Learning}, 
+  year={2025},
+  volume={36},
+  number={7},
+  pages={12721-12735},
+  keywords={Tensors;Matrix decomposition;Feature extraction;Hyperspectral imaging;Superresolution;Manifold learning;Convolutional neural networks;Sparse matrices;Mathematical models;Decoding;Blind fusion;deep Tucker decomposition;hyperspectral image (HSI);manifold learning},
+  doi={10.1109/TNNLS.2024.3457781}
+}
+```
+
+## Licensing
+
+Copyright (C) 2024 He Wang and Yang Xu
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, version 3 of the License.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program.
+
+## Contact
+
+If you are interested in our work or encounter any bugs while using this code, please do not hesitate to contact us.
+
+Sciencerely,
+
+He Wang
+<br>
+School of Computer Science and Engineering
+<br>
+Nanjing University of Science and Technology
+<br>
+Email: he_wang@njust.edu.cn
