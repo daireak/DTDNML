@@ -12,18 +12,15 @@ class BaseOptions():
         # data
         parser.add_argument('--name', type=str, default='experiment_name', help='name of the experiment. It decides where to store samples and models')
         parser.add_argument("--data_name", type=str, default='cave')
-        parser.add_argument("--mat_name", type=str, default='paviaU', help='mat文件的文件名（不含.mat后缀）')
-        parser.add_argument("--mat_key", type=str, default='paviaU', help='mat文件里面的变量/键名')
         parser.add_argument("--scale_factor", type=int, default=8, help='4,8')
         
-# ================= 新增绝对路径与字典键名参数 =================
-        parser.add_argument("--data_path", type=str, default='', help='HSI .mat 文件的绝对路径')
-        parser.add_argument("--r_path", type=str, default='', help='R.mat 光谱响应函数的绝对路径')
-        parser.add_argument("--r_key", type=str, default='R', help='R.mat 里面的变量/键名')
-        parser.add_argument("--srf_name", type=str, default='cave', help='SRF 名字 (兼容旧版代码)')
-        parser.add_argument("--concat", type=str, default='Yes', help='网络结构是否使用 concat')
-        # ==============================================================
-        
+        # ================= 新增：动态数据集绝对路径与参数 =================
+        parser.add_argument('--data_path', type=str, default='/home/dengxiaogui/Data/PU.mat', help='绝对路径：主要高光谱数据集 (.mat)')
+        parser.add_argument('--r_path', type=str, default='/home/dengxiaogui/Data/R.mat', help='绝对路径：光谱响应函数 R 矩阵 (.mat)')
+        parser.add_argument('--mat_key', type=str, default='img', help='.mat 文件中图像变量的键值')
+        parser.add_argument('--r_key', type=str, default='R', help='.mat 文件中 R 矩阵的键值')
+        # ==================================================================
+
         # gpu
         parser.add_argument("--gpu_ids", type=str, default='-1', help='gpu ids: e.g. 0  0,1,2, 0,2. use -1 for CPU')
         # class
@@ -68,7 +65,7 @@ class BaseOptions():
             parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
             parser = self.initialize(parser)
 
-        #parser.parse_args(['--epoch_count','2'])
+        parser.parse_args(['--epoch_count','2'])
         
         opt, _ = parser.parse_known_args()
 

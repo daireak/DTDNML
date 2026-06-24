@@ -4,7 +4,7 @@ import scipy.io as sio
 from skimage.metrics import structural_similarity as skimage_ssim
 
 # ==========================================
-# 1. 核心评估函数 (完全复用你的 train_pu.py)
+# 1. 核心评估函数 (保持原样)
 # ==========================================
 def bandwise_psnr(img_real, img_fake, data_range=1.0):
     mse_bands = np.mean((img_real - img_fake) ** 2, axis=(0, 1))
@@ -52,44 +52,39 @@ def quality_assessment(S_true, Z_pred, sf):
 # ==========================================
 if __name__ == '__main__':
     # ------------------ 路径设置 ------------------
-    # 修改为你真实的 PU 数据集路径
     gt_path = "/home/dengxiaogui/Data/PU.mat" 
-    
-    # 修改为你刚刚跑出来的 70MB mat 文件路径
-    pred_path = "/home/dengxiaogui/DTDNML/checkpoints/pu_scale_4_fixed/results/PU_4000.mat" # 根据你的实际文件名修改
-    
+    pred_path = "/home/dengxiaogui/DTDNML/checkpoints/pu_scale_4/results/PU_10000.mat" # 记得改成你实际跑出来的mat名字
     scale_factor = 4
     # ----------------------------------------------
 
-    
-    # 1. 加载并对齐 Ground Truth 
     print("Loading Ground Truth...")
     gt_img = sio.loadmat(gt_path)['img']  
     
-    # 🌟 修改：与 dataset.py 保持完全一致，只取前 256x256 区域进行评测
-    S_true = gt_img[:256, :256, :]
+    # 🌟严格对齐 dataset.py：取前 256x256
+    S_true = gt_img[:256, :256, :].astype(np.float32)
     
-    # 归一化
-    S_true = (S_true - np.min(S_true)) / (np.max(S_true) - np.min(S_true))
-    # 归一化
-    S_true = (S_true - np.min(S_true)) / (np.max(S_true) - np.min(S_true))
+    max_val = np.max(gt_img)  # 用全局最大值
+    S_true = S_true / (max_val if max_val != 0 else 1.0)
 
-    # 2. 加载预测结果
     print("Loading Predicted Data...")
     try:
-        Z_pred = sio.loadmat(pred_path)['out']
+        Z_pred = sio.loadmat(pred_path)['out'].astype(np.float32)
     except Exception as e:
-        print(f"读取预测文件失败，请检查路径是否正确: {e}")
+        print(f"读取预测文件失败: {e}")
         exit()
 
-    print(f"GT Shape: {S_true.shape}, Pred Shape: {Z_pred.shape}")
+    # 网络输出的本身就是 [0,1] 的预测结果，直接裁剪即可
+    Z_pred = Z_pred[:256, :256, :]
     
-    # 检查维度是否对齐
+    # 防止微小的浮点数越界
+    Z_pred = np.clip(Z_pred, 0.0, 1.0)
+
+    print(f"GT Shape: {S_true.shape}, Pred Shape: {Z_pred.shape}")
+
     if S_true.shape != Z_pred.shape:
         print("警告：GT 和 预测结果的维度不一致！请检查！")
     else:
-        # 3. 计算 6 指标
-        print("\nCalculating metrics... (It may take a few seconds)")
+        print("\nCalculating metrics... ")
         psnr_v, ssim_v, sam_v, ergas_v, cc_v, dd_v = quality_assessment(S_true, Z_pred, scale_factor)
 
         print(f"\n{'='*20} DTDNML 最终评估结果 (Scale={scale_factor}) {'='*20}")

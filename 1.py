@@ -1,0 +1,1 @@
+import scipy.io as sio; print(sio.loadmat('checkpoints/pu_scale_4/results/PU_4000.mat')['out'].max())

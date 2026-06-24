@@ -22,16 +22,16 @@ echo "=========================================================="
 # 注意：加入了 --display_id 0 来彻底关闭画图逻辑
 
 
-#python metrics.py
+
 # 【1】PU 数据集 (缩放4倍)
-python main.py --name pu_scale_4 --data_path /home/dengxiaogui/Data/PU.mat --r_path /home/dengxiaogui/Data/R.mat --mat_key img --r_key R --scale_factor 4 --num_theta 30 --batchsize 1 --display_id 0 --isCalSP Yes --concat Yes --lambda_A 0.1 --lambda_B 0 --lambda_C 0
-# 【终极修复版】PU 数据集 (缩放4倍)
-#python main.py --name pu_scale_4_fixed --data_path /home/dengxiaogui/Data/PU.mat --r_path /home/dengxiaogui/Data/R.mat --mat_key img --r_key R --scale_factor 4 --num_theta 30 --batchsize 1 --display_id 0 --isCalSP Yes --concat Yes --lambda_A 0.1 --lambda_B 0.001 --lambda_C 0.01 --niter 3000 --niter_decay 7000
+python main.py --name pu_scale_4 --data_path /home/dengxiaogui/Data/PU.mat --r_path /home/dengxiaogui/Data/R.mat --mat_key img --r_key R --scale_factor 4 --num_theta 30 --batchsize 1 --display_id 0 --isCalSP Yes --lambda_A 0.1 --lambda_B 0.001 --lambda_C 0.01 --lr 5e-3 --niter 3000 --niter_decay 7000 --gpu_ids 0
+#python main.py --name pu_scale_4 --data_path /home/dengxiaogui/Data/PU.mat --r_path /home/dengxiaogui/Data/R.mat --mat_key img --r_key R --scale_factor 4 --num_theta 30 --batchsize 1 --display_id 0 --isCalSP Yes --lambda_A 0.1 --lambda_B 0.001 --lambda_C 0.01 --lr 5e-3 --niter 3000 --niter_decay 7000 --gpu_ids 0
+python metrics.py
 # 【2】WDC 数据集 (缩放4倍)
-#python main.py --name wadc_scale_4 --data_path /home/dengxiaogui/Data/WDC.mat --r_path /home/dengxiaogui/Data/R.mat --mat_key WDC --r_key R --scale_factor 4 --num_theta 30 --batchsize 1 --display_id 0 --isCalSP Yes --concat Yes --lambda_A 0.1 --lambda_B 0 --lambda_C 0
+#python main.py --name wadc_scale_4 --data_path /home/dengxiaogui/Data/WDC.mat --r_path /home/dengxiaogui/Data/R.mat --mat_key WDC --r_key R --scale_factor 4 --num_theta 30 --batchsize 1 --display_id 0 --isCalSP Yes --concat Yes --lambda_A 0.1 --lambda_B 0 --lambda_C 0--gpu_ids 0
 
 # 【3】Chikusei 数据集 (缩放8倍)
-# python main.py --name chikusei_scale_8 --data_path /home/dengxiaogui/Data/Chikusei.mat --r_path /home/dengxiaogui/Data/R.mat --mat_key chikusei --r_key R --scale_factor 8 --num_theta 30 --batchsize 1 --display_id 0 --isCalSP Yes --concat Yes --lambda_A 0.1 --lambda_B 0 --lambda_C 0
+# python main.py --name chikusei_scale_8 --data_path /home/dengxiaogui/Data/Chikusei.mat --r_path /home/dengxiaogui/Data/R.mat --mat_key chikusei --r_key R --scale_factor 8 --num_theta 30 --batchsize 1 --display_id 0 --isCalSP Yes --concat Yes --lambda_A 0.1 --lambda_B 0 --lambda_C 0--gpu_ids 0
 
 echo "=========================================================="
 echo "Job finished."
